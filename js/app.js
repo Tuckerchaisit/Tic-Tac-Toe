@@ -10,6 +10,16 @@ let winner; //Use a winner variable to represent three different game states:
 // or a game that is still in play.
 const playerX = 1;
 const playerO = -1;
+const winningConditions = [
+  [0,1,2],
+  [3,4,5],
+  [6,7,8],
+  [0,3,6],
+  [1,4,7],
+  [2,5,8],
+  [0,4,8],
+  [2,4,6]
+];
 /*------------------------ Cached Element References ------------------------*/
 const msgStatus = document.querySelector("#message"); //Store the element that displays the game status on the page
 const sq = Array.from(document.querySelectorAll(".sq")) //Store the 9 elements that represent the squares on the page
