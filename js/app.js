@@ -94,9 +94,36 @@ function renderTurn(){ //change the msg to show the current turn while the game 
 }
 
 function handleClick(index){
-  if(turn===1){
-    sq[index].textContent='X';
-    console.log(index);
+
+  isGameOver(); //check if there's a winner or tie
+  updateBoard(index); //update board upon click
+
+}
+
+function changeTurn(){ //alternate the turn
+  turn = turn * (-1);
+}
+
+function isGameOver(){
+  if(winner !== null){  //If winner is not null, immediately return because the game is over.
+    renderMsg();
+    return;
+  }  
+}
+
+function updateBoard(index){
+  if(board[index]===null){ //check if the board already has the value at the index
+    
+    if(turn === 1){
+      board[index]=1
+      changeTurn();
+    }else{
+      if(turn === -1){
+        board[index]= -1
+        changeTurn();
+      }
+    }
+    render();
   }
 }
 
