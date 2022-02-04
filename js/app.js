@@ -27,7 +27,14 @@ const sq = Array.from(document.querySelectorAll(".sq")) //Store the 9 elements t
 
 
 /*----------------------------- Event Listeners -----------------------------*/
-
+sq.forEach( (square,index) =>{
+  square.addEventListener('click', function(evt){
+    evt.preventDefault();
+    handleClick(index);
+    
+  });
+  }
+)
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -83,6 +90,13 @@ function renderTurn(){ //change the msg to show the current turn while the game 
     if(turn === -1){
       msgStatus.textContent = 'The current turn is Player O'
     }
+  }
+}
+
+function handleClick(index){
+  if(turn===1){
+    sq[index].textContent='X';
+    console.log(index);
   }
 }
 
