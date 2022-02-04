@@ -97,6 +97,9 @@ function handleClick(index){
 
   isGameOver(); //check if there's a winner or tie
   updateBoard(index); //update board upon click
+  getWinner();
+  changeTurn();
+  isGameOver();
 
 }
 
@@ -116,15 +119,29 @@ function updateBoard(index){
     
     if(turn === 1){
       board[index]=1
-      changeTurn();
+      //changeTurn();
     }else{
       if(turn === -1){
         board[index]= -1
-        changeTurn();
+        //changeTurn();
       }
     }
     render();
   }
 }
 
+function getWinner(){
+  for (let i=0; i<8; i++){
+    const winCondition = winningConditions[i];
+    const a = board[winCondition[0]];
+    const b = board[winCondition[1]];
+    const c = board[winCondition[2]];
+    console.log(a,b,c)
+    if(a === b && b === c && (a !== null && b !== null && c !== null)){
+      console.log("condition true")
+      winner = turn;
+      return;
+    }
+  }
+}
 
