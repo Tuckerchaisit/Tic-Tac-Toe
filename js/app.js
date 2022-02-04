@@ -28,11 +28,7 @@ const sq = Array.from(document.querySelectorAll(".sq")) //Store the 9 elements t
 
 /*----------------------------- Event Listeners -----------------------------*/
 sq.forEach( (square,index) =>{
-  square.addEventListener('click', function(evt){
-    evt.preventDefault();
-    handleClick(index);
-    
-  });
+  square.addEventListener('click',() => handleClick(index));
   }
 )
 
@@ -49,7 +45,8 @@ function init(){
 
 function render(){
   loopStyle();
-  renderMsg();  
+  renderMsg();
+    
 }
 
 function loopStyle(){
@@ -73,9 +70,11 @@ function renderMsg(){
     }else{
       if(winner === 1){ // player X has won
         msgStatus.textContent = 'Congratulations! The Winner is Player X'
+        endTheGame();
       }else{
         if(winner === -1){ // player Y has won
           msgStatus.textContent = 'Congratulations! The Winner is Player O'
+          endTheGame();
         }
       }
     }
@@ -126,6 +125,8 @@ function updateBoard(index){
       }
     }
     render();
+  }else{
+    changeTurn();//debugged that the current turn is changing when clicked the board with existing value
   }
 }
 
@@ -145,8 +146,15 @@ function getWinner(){ //check if we have a winner condition
 }
 
 function getTie(){ //check if the game is a tie
+  getWinner(); //make sure that the win condition still work even tho it's the last empty block before win(debugged)
+  if(winner!==null){
+    return;
+  }
   if(!board.includes(null)){
     winner = 'T';
   }
 }
 
+function endTheGame(){
+  turn = null;
+}
