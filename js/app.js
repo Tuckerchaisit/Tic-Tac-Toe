@@ -52,7 +52,6 @@ function render(){
   renderMsg();  
 }
 
-/*----------------------------- Helper Functions ---------------------------*/
 function loopStyle(){
   for(i=0; i<board.length; i++){
     if(board[i]===playerX){
@@ -93,14 +92,14 @@ function renderTurn(){ //change the msg to show the current turn while the game 
   }
 }
 
-function handleClick(index){
-
+function handleClick(index){ //happen after click that take index of the sq clicked as a parameter
   isGameOver(); //check if there's a winner or tie
   updateBoard(index); //update board upon click
-  getWinner();
-  changeTurn();
-  isGameOver();
-
+  getWinner(); //check if we have winner
+  getTie(); //check if we have tie
+  changeTurn(); //change the player's turn
+  isGameOver(); //check if the game is over, if it's over then prompt the appropriate msg
+  render();
 }
 
 function changeTurn(){ //alternate the turn
@@ -130,18 +129,24 @@ function updateBoard(index){
   }
 }
 
-function getWinner(){
+function getWinner(){ //check if we have a winner condition
   for (let i=0; i<8; i++){
     const winCondition = winningConditions[i];
     const a = board[winCondition[0]];
     const b = board[winCondition[1]];
     const c = board[winCondition[2]];
-    console.log(a,b,c)
+    //console.log(a,b,c)
     if(a === b && b === c && (a !== null && b !== null && c !== null)){
-      console.log("condition true")
+      
       winner = turn;
       return;
     }
+  }
+}
+
+function getTie(){ //check if the game is a tie
+  if(!board.includes(null)){
+    winner = 'T';
   }
 }
 
