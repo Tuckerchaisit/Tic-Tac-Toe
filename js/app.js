@@ -40,7 +40,8 @@ init(); //call an initialize function
 
 function init(){
   board = [null, null, null, null, null, null, null, null, null]; //Initialize the board array to 9 nulls to represent empty squares.
-  resetBtn.setAttribute('hidden',true);
+  //resetBtn.setAttribute('hidden',true);
+  resetSqColor();
   turn = 1; // player X is 1, player O is -1
   winner = null; //Initialize the winner variable to null, 1 if X wins, -1 if O wins, T if ties
   render();
@@ -57,9 +58,11 @@ function loopStyle(){
   for(i=0; i<board.length; i++){
     if(board[i]===playerX){
       sq[i].textContent='X';
+      sq[i].className = 'playXsq';
     }else{
       if(board[i]===playerO){
         sq[i].textContent='O';
+        sq[i].className = 'playYsq';
       }else{
         sq[i].textContent='';
       }
@@ -89,9 +92,11 @@ function renderMsg(){
 
 function renderTurn(){ //change the msg to show the current turn while the game is still going
   if(turn === 1){
+    msgStatus.className = "playX"
     msgStatus.textContent = 'The current turn is Player X'
   }else{
     if(turn === -1){
+      msgStatus.className = "playY"
       msgStatus.textContent = 'The current turn is Player O'
     }
   }
@@ -165,4 +170,10 @@ function getTie(){ //check if the game is a tie
 
 function endTheGame(){ //to end the game 
   turn = null;
+}
+
+function resetSqColor(){
+  for(i=0; i<board.length; i++){
+    sq[i].className = '';
+  }
 }
