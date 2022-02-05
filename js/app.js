@@ -23,6 +23,7 @@ const winningConditions = [
 /*------------------------ Cached Element References ------------------------*/
 const msgStatus = document.querySelector("#message"); //Store the element that displays the game status on the page
 const sq = Array.from(document.querySelectorAll(".sq")) //Store the 9 elements that represent the squares on the page
+const resetBtn = document.querySelector("#reset-button")
 
 
 
@@ -31,6 +32,7 @@ sq.forEach( (square,index) =>{
   square.addEventListener('click',() => handleClick(index));
   }
 )
+resetBtn.addEventListener('click',init);
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -38,12 +40,14 @@ init(); //call an initialize function
 
 function init(){
   board = [null, null, null, null, null, null, null, null, null]; //Initialize the board array to 9 nulls to represent empty squares.
+  resetBtn.setAttribute('hidden',true);
   turn = 1; // player X is 1, player O is -1
   winner = null; //Initialize the winner variable to null, 1 if X wins, -1 if O wins, T if ties
   render();
 }
 
 function render(){
+  
   loopStyle();
   renderMsg();
     
@@ -56,6 +60,8 @@ function loopStyle(){
     }else{
       if(board[i]===playerO){
         sq[i].textContent='O';
+      }else{
+        sq[i].textContent='';
       }
     }
   }
@@ -94,6 +100,7 @@ function renderTurn(){ //change the msg to show the current turn while the game 
 function handleClick(index){ //happen after click that take index of the sq clicked as a parameter
   isGameOver(); //check if there's a winner or tie
   updateBoard(index); //update board upon click
+  resetBtn.removeAttribute('hidden'); //show the reset button
   getWinner(); //check if we have winner
   getTie(); //check if we have tie
   changeTurn(); //change the player's turn
@@ -145,6 +152,7 @@ function getWinner(){ //check if we have a winner condition
   }
 }
 
+
 function getTie(){ //check if the game is a tie
   getWinner(); //make sure that the win condition still work even tho it's the last empty block before win(debugged)
   if(winner!==null){
@@ -155,6 +163,6 @@ function getTie(){ //check if the game is a tie
   }
 }
 
-function endTheGame(){
+function endTheGame(){ //to end the game 
   turn = null;
 }
